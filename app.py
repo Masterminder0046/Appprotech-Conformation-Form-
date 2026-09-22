@@ -329,16 +329,13 @@ def login():
         password = request.form.get("password", "").strip()
         next_url = request.form.get("next") or request.args.get("next") or url_for("admin")
 
-        valid_usernames = [ADMIN_USERNAME.lower(), "approtech", "admin@approtech.com"]
-        valid_passwords = [ADMIN_PASSWORD, "admin2026"]
-
-        if username.lower() in valid_usernames and password in valid_passwords:
+        if username.lower() == ADMIN_USERNAME.lower() and password == ADMIN_PASSWORD:
             session["admin_logged_in"] = True
             session["admin_user"] = username
             flash("Signed in successfully.", "success")
             return redirect(next_url)
         else:
-            flash("Invalid username or password. Please try again.", "error")
+            flash("Invalid username or password. Access denied.", "error")
             return render_template("login.html", next_url=next_url)
 
     next_url = request.args.get("next", "")

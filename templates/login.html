@@ -137,19 +137,18 @@
       gap: 8px;
     }
 
-    .login-demo-hint {
+    .login-security-notice {
       margin-top: 24px;
-      padding: 12px;
+      padding: 10px 14px;
       background: #f8fafc;
-      border: 1px dashed #cbd5e1;
+      border: 1px solid #e2e8f0;
       border-radius: 8px;
       font-size: 0.75rem;
       color: #64748b;
-      text-align: center;
-    }
-
-    .login-demo-hint strong {
-      color: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
 
     .back-home-link {
@@ -199,7 +198,7 @@
           <label for="username" class="login-label">Username</label>
           <div class="login-input-wrap">
             <i data-lucide="user" class="login-icon-left" style="width: 16px; height: 16px;"></i>
-            <input type="text" id="username" name="username" class="login-input" placeholder="Enter admin username" required autofocus value="admin">
+            <input type="text" id="username" name="username" class="login-input" placeholder="Enter admin username" required autofocus autocomplete="username">
           </div>
         </div>
 
@@ -207,7 +206,7 @@
           <label for="password" class="login-label">Password</label>
           <div class="login-input-wrap">
             <i data-lucide="lock" class="login-icon-left" style="width: 16px; height: 16px;"></i>
-            <input type="password" id="password" name="password" class="login-input" placeholder="Enter password" required value="admin123">
+            <input type="password" id="password" name="password" class="login-input" placeholder="Enter admin password" required autocomplete="current-password">
           </div>
         </div>
 
@@ -217,10 +216,10 @@
         </button>
       </form>
 
-      <!-- DEMO HINT -->
-      <div class="login-demo-hint">
-        <div>Approtech Administration Security Gateway</div>
-        <div style="margin-top: 4px;">Default Credentials: <strong>admin</strong> / <strong>admin123</strong></div>
+      <!-- SECURITY NOTICE -->
+      <div class="login-security-notice">
+        <i data-lucide="shield-check" style="width: 15px; height: 15px; color: #4f46e5;"></i>
+        <span>Authorized Personnel Only &bull; Security Gateway</span>
       </div>
 
     </div>
