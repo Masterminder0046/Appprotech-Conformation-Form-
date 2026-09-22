@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Internship Confirmation Letter - {{ submission.full_name }} | Approtech R&amp;D Solutions</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/letter.css') }}">
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/approtech-logo.png') }}">
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <div class="letter-page-wrapper">
+    
+    <!-- TOP ACTION BAR (Hidden in print) -->
+    <div class="letter-action-bar no-print">
+      <a href="{{ url_for('index') }}" style="color: #94a3b8; text-decoration: none;">
+        <i data-lucide="arrow-left" style="width: 18px; height: 18px;"></i>
+        <span>Portal</span>
+      </a>
+
+      <div style="display: flex; gap: 10px; align-items: center;">
+        <a href="{{ url_for('download_pdf_by_app_id', application_id=submission.application_id) }}" 
+           style="background: #ef4444; color: white; padding: 8px 14px; border-radius: 8px; text-decoration: none; font-size: 13px;">
+          <i data-lucide="file-text" style="width: 16px; height: 16px;"></i>
+          <span>Download PDF</span>
+        </a>
+
+        <a href="{{ url_for('download_word_by_app_id', application_id=submission.application_id) }}" 
+           style="background: #2563eb; color: white; padding: 8px 14px; border-radius: 8px; text-decoration: none; font-size: 13px;">
+          <i data-lucide="file-edit" style="width: 16px; height: 16px;"></i>
+          <span>Download Word</span>
+        </a>
+
+        <button type="button" onclick="window.print()" 
+                style="background: #10b981; color: white; border: none; padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600;">
+          <i data-lucide="printer" style="width: 16px; height: 16px;"></i>
+          <span>Print Letter</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- OFFICIAL PRINTABLE A4 LETTER PAPER -->
+    <div class="letter-paper">
+      
+      <!-- TOP PORTION -->
+      <div>
+        <!-- 1. OFFICIAL BRANDED HEADER -->
+        <div class="official-letter-header">
+          <img src="{{ url_for('static', filename='images/header.png') }}" 
+               alt="Approtech &amp; MSME Header" 
+               class="official-header-img">
+        </div>
+
+        <!-- 2. DOCUMENT TITLE -->
+        <h1 class="official-letter-title">INTERNSHIP CONFIRMATION LETTER</h1>
+
+        <!-- 3. TO & DATE -->
+        <div class="official-to-date-row">
+          <div class="official-to-block">
+            <strong>To,</strong>
+            <div class="official-recipient-details">
+              <div>{{ submission.full_name }},</div>
+              <div>REG NO: {{ submission.registration_number }},</div>
+              <div>{{ submission.degree_department }},</div>
+              <div>{{ submission.institution_name }},</div>
+              <div>{{ submission.institution_location }}.</div>
+            </div>
+          </div>
+          <div class="official-date-block">
+            <strong>Date:</strong> {{ current_date_fmt }}
+          </div>
+        </div>
+
+        <!-- 4. SALUTATION -->
+        <div class="official-salutation">
+          Dear {{ submission.full_name }},
+        </div>
+
+        <!-- 5. BODY PARAGRAPHS -->
+        <p class="official-p">
+          We are pleased to confirm your selection for the <strong>{{ submission.internship_domain }} Internship Program</strong> at <strong>Approtech R&amp;D Solutions Pvt. Ltd.</strong>, Chennai. This internship is designed to equip you with the fundamental knowledge and practical experience.
+        </p>
+
+        <!-- 6. INTERNSHIP DETAILS -->
+        <div class="official-details-heading">
+          Internship Details
+        </div>
+
+        <ul class="official-details-list">
+          <li>
+            <span class="lbl">Internship Domain:</span>
+            <strong>{{ submission.internship_domain }}</strong>
+          </li>
+          <li>
+            <span class="lbl">Start Date :</span>
+            <span>{{ start_date_fmt }}</span>
+          </li>
+          <li>
+            <span class="lbl">End Date :</span>
+            <span>{{ end_date_fmt }}</span>
+          </li>
+        </ul>
+
+        <!-- 7. LOCATION -->
+        <div class="official-location-line">
+          <strong>Location:</strong> Approtech R&amp;D Solutions Pvt. Ltd., Chennai
+        </div>
+
+        <!-- 8. PROFESSIONAL PARAGRAPHS -->
+        <p class="official-p">
+          The internship will provide you with practical exposure to industry practices and hands-on training to build your professional skills.
+        </p>
+
+        <p class="official-p">
+          Please bring a printed copy of this letter and your college ID on the first day.
+        </p>
+
+        <p class="official-p">
+          We look forward to your participation!
+        </p>
+      </div>
+
+      <!-- BOTTOM PORTION (SIGNATURE & FOOTER) -->
+      <div>
+        <div class="official-signature-section">
+          <div class="official-warm-regards">Warm regards,</div>
+
+          <!-- SIGNATURE & STAMP ROW -->
+          <div class="official-stamp-sig-row">
+            <img src="{{ url_for('static', filename='images/signature.png') }}" 
+                 alt="Authorized Signature" 
+                 class="official-sig-img">
+            <img src="{{ url_for('static', filename='images/stamp.png') }}" 
+                 alt="Official Company Stamp" 
+                 class="official-stamp-img">
+          </div>
+
+          <div class="official-signatory-name">Authorized Signatory</div>
+          <div class="official-signatory-company">Approtech R&amp;D Solutions Pvt. Ltd</div>
+        </div>
+
+        <!-- 9. OFFICIAL BRANDED FOOTER -->
+        <div class="official-letter-footer">
+          <img src="{{ url_for('static', filename='images/footer.png') }}" 
+               alt="Approtech Contact Footer" 
+               class="official-footer-img">
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

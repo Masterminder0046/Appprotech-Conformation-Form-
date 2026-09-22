@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Internship Confirmation Letter Request | Approtech R&amp;D Solutions</title>
+  <meta name="description" content="Request your official Internship Confirmation Letter from Approtech R&amp;D Solutions Pvt. Ltd.">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/letter.css') }}">
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/approtech-logo.png') }}">
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- TOP NAVIGATION -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <img src="{{ url_for('static', filename='images/approtech-logo.png') }}" alt="Approtech Logo" class="brand-logo">
+        <div class="brand-divider"></div>
+        <div class="brand-text-block">
+          <span class="portal-title">Internship Portal</span>
+          <span class="portal-subtitle">Official Confirmation Request</span>
+        </div>
+      </div>
+      <div class="nav-actions">
+        <span class="iso-nav-badge">
+          <i data-lucide="shield-check" style="width: 14px; height: 14px; color: var(--primary);"></i>
+          ISO 9001:2015
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO BANNER -->
+  <section class="hero-section">
+    <div class="company-badge">
+      <span class="badge-dot"></span>
+      APPROTECH R&amp;D SOLUTIONS PVT. LTD. &bull; CIN: U74900TN2025PTC178688
+    </div>
+    <h1 class="hero-title">Internship Confirmation Letter Request</h1>
+    <p class="hero-subtitle">Complete your student and academic credentials below, review your details, and submit to receive your official confirmation letter.</p>
+  </section>
+
+  <!-- MAIN SPLIT LAYOUT: FORM ON LEFT, LIVE PREVIEW ON RIGHT -->
+  <main class="portal-layout">
+    
+    <!-- LEFT: FORM CARD -->
+    <div class="form-card">
+      <form id="confirmationForm" action="/submit" method="POST" novalidate>
+        
+        <!-- SECTION 01: STUDENT INFORMATION -->
+        <div class="form-section">
+          <div class="section-header">
+            <span class="section-number">
+              <i data-lucide="user" style="width: 15px; height: 15px;"></i>
+            </span>
+            <h2 class="section-title">Student Information</h2>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="full_name">Full Name <span class="required-star">*</span></label>
+              <input type="text" id="full_name" name="full_name" class="form-input" placeholder="e.g. Sheik" required>
+              <span class="field-error">Full Name is required</span>
+            </div>
+            <div class="form-group">
+              <label for="registration_number">Registration Number <span class="required-star">*</span></label>
+              <input type="text" id="registration_number" name="registration_number" class="form-input" placeholder="e.g. 422122104046" required>
+              <span class="field-error">Registration Number is required</span>
+            </div>
+            <div class="form-group">
+              <label for="email">Email ID <span class="required-star">*</span></label>
+              <input type="email" id="email" name="email" class="form-input" placeholder="e.g. sheik.student@example.com" required>
+              <span class="field-error">Valid Email ID is required</span>
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number <span class="required-star">*</span></label>
+              <input type="tel" id="phone" name="phone" class="form-input" placeholder="e.g. 9876543210" required>
+              <span class="field-error">Valid 10-digit Phone Number is required</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 02: ACADEMIC CREDENTIALS -->
+        <div class="form-section">
+          <div class="section-header">
+            <span class="section-number">
+              <i data-lucide="graduation-cap" style="width: 15px; height: 15px;"></i>
+            </span>
+            <h2 class="section-title">Academic Information</h2>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group full-width">
+              <label for="degree_department">Degree / Department <span class="required-star">*</span></label>
+              <input type="text" id="degree_department" name="degree_department" class="form-input" placeholder="e.g. BE/CSE, B.Tech ECE, MCA" required>
+              <span class="field-error">Degree / Department is required</span>
+            </div>
+            <div class="form-group">
+              <label for="institution_name">Institution Name <span class="required-star">*</span></label>
+              <input type="text" id="institution_name" name="institution_name" class="form-input" placeholder="e.g. St.Anne's CET" required>
+              <span class="field-error">Institution Name is required</span>
+            </div>
+            <div class="form-group">
+              <label for="institution_location">Institution Location <span class="required-star">*</span></label>
+              <input type="text" id="institution_location" name="institution_location" class="form-input" placeholder="e.g. Cuddalore" required>
+              <span class="field-error">Institution Location is required</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 03: INTERNSHIP DOMAIN -->
+        <div class="form-section">
+          <div class="section-header">
+            <span class="section-number">
+              <i data-lucide="briefcase" style="width: 15px; height: 15px;"></i>
+            </span>
+            <h2 class="section-title">Internship Domain</h2>
+          </div>
+          <div class="form-group">
+            <label>Select Domain <span class="required-star">*</span></label>
+            <input type="hidden" id="internship_domain" name="internship_domain" value="Fullstack Development (python)" required>
+            
+            <div class="domain-selector-container">
+              <div class="domain-search-box">
+                <i data-lucide="search" class="search-icon" style="width: 16px; height: 16px;"></i>
+                <input type="text" id="domainSearch" class="form-input domain-search-input" placeholder="Search domain (e.g. Python, AI, Robotics, Embedded, IoT)...">
+              </div>
+
+              <div class="domain-chips-grid" id="domainChipsContainer">
+                {% for d in domains %}
+                <button type="button" class="domain-chip {% if d == 'Fullstack Development (python)' %}selected{% endif %}" data-domain="{{ d }}">
+                  <i data-lucide="check" class="chip-check" style="width: 12px; height: 12px;"></i>
+                  <span>{{ d }}</span>
+                </button>
+                {% endfor %}
+              </div>
+            </div>
+            <span class="field-error" id="domainError">Please select an Internship Domain</span>
+          </div>
+        </div>
+
+        <!-- SECTION 04: DURATION & DATES -->
+        <div class="form-section">
+          <div class="section-header">
+            <span class="section-number">
+              <i data-lucide="calendar" style="width: 15px; height: 15px;"></i>
+            </span>
+            <h2 class="section-title">Internship Dates</h2>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="start_date">Start Date <span class="required-star">*</span></label>
+              <input type="date" id="start_date" name="start_date" class="form-input" value="2026-09-01" required>
+              <span class="field-error">Start Date is required</span>
+            </div>
+            <div class="form-group">
+              <label for="end_date">End Date <span class="required-star">*</span></label>
+              <input type="date" id="end_date" name="end_date" class="form-input" value="2026-09-30" required>
+              <span class="field-error">End Date must be on or after Start Date</span>
+            </div>
+          </div>
+          <div class="duration-display-badge">
+            <i data-lucide="clock" style="width: 18px; height: 18px; color: var(--primary);"></i>
+            <span id="durationText">30 Days Duration</span>
+          </div>
+        </div>
+
+        <!-- SECTION 05: FORMAT TYPE -->
+        <div class="form-section">
+          <div class="section-header">
+            <span class="section-number">
+              <i data-lucide="monitor" style="width: 15px; height: 15px;"></i>
+            </span>
+            <h2 class="section-title">Format Type</h2>
+          </div>
+          <input type="hidden" id="format_type" name="format_type" value="Offline">
+          
+          <div class="format-cards-grid">
+            <!-- OFFLINE CARD -->
+            <div class="format-card selected" data-format="Offline">
+              <div class="format-check-badge">
+                <i data-lucide="check" style="width: 12px; height: 12px;"></i>
+              </div>
+              <div class="format-icon">
+                <i data-lucide="building-2" style="width: 22px; height: 22px;"></i>
+              </div>
+              <div class="format-title">OFFLINE</div>
+              <div class="format-desc">On-site internship at Approtech R&amp;D Solutions, West Tambaram, Chennai.</div>
+            </div>
+
+            <!-- ONLINE CARD -->
+            <div class="format-card" data-format="Online">
+              <div class="format-check-badge">
+                <i data-lucide="check" style="width: 12px; height: 12px;"></i>
+              </div>
+              <div class="format-icon">
+                <i data-lucide="laptop" style="width: 22px; height: 22px;"></i>
+              </div>
+              <div class="format-title">ONLINE</div>
+              <div class="format-desc">Virtual remote internship with interactive daily guidance and project modules.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ACTION BUTTON -->
+        <div style="margin-top: 2rem;">
+          <button type="button" class="btn btn-primary btn-lg" id="reviewBtn" style="width: 100%;">
+            <span>Review &amp; Submit Request</span>
+            <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i>
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </main>
+
+  <!-- REVIEW BEFORE SUBMIT MODAL -->
+  <div class="modal-backdrop" id="reviewModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <i data-lucide="clipboard-check" style="width: 22px; height: 22px; color: var(--primary);"></i>
+          <h3 class="modal-title">Review Submission Details</h3>
+        </div>
+        <button type="button" class="modal-close-btn" id="closeReviewModal">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <p style="font-size: 0.875rem; color: var(--slate-600); margin-bottom: 1.25rem;">
+          Please review your information carefully before submitting your confirmation request.
+        </p>
+
+        <!-- STUDENT SUMMARY -->
+        <div class="review-summary-block">
+          <div class="summary-block-title">
+            <i data-lucide="user" style="width: 14px; height: 14px;"></i>
+            Student Information
+          </div>
+          <div class="summary-grid">
+            <div class="summary-item">
+              <span class="summary-label">Full Name</span>
+              <span class="summary-value" id="revName">--</span>
+            </div>
+            <div class="summary-item">
+              <span class="summary-label">Registration Number</span>
+              <span class="summary-value" id="revRegNo">--</span>
+            </div>
+            <div class="summary-item">
+              <span class="summary-label">Email ID</span>
+              <span class="summary-value" id="revEmail">--</span>
+            </div>
+            <div class="summary-item">
+              <span class="summary-label">Phone Number</span>
+              <span class="summary-value" id="revPhone">--</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ACADEMIC SUMMARY -->
+        <div class="review-summary-block">
+          <div class="summary-block-title">
+            <i data-lucide="graduation-cap" style="width: 14px; height: 14px;"></i>
+            Academic Information
+          </div>
+          <div class="summary-grid">
+            <div class="summary-item">
+              <span class="summary-label">Degree / Department</span>
+              <span class="summary-value" id="revDegree">--</span>
+            </div>
+            <div class="summary-item">
+              <span class="summary-label">Institution Name</span>
+              <span class="summary-value" id="revCollege">--</span>
+            </div>
+            <div class="summary-item">
+              <span class="summary-label">Location</span>
+              <span class="summary-value" id="revLocation">--</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- INTERNSHIP SUMMARY -->
+        <div class="review-summary-block">
+          <div class="summary-block-title">
+            <i data-lucide="briefcase" style="width: 14px; height: 14px;"></i>
+            Internship Details
+          </div>
+          <div class="summary-grid">
+            <div class="summary-item">
+              <span class="summary-label">Domain</span>
+              <span class="summary-value" id="revDomain">--</span>
+            </div>
+            <div class="summary-item">
+              <span class="summary-label">Format Type</span>
+              <span class="summary-value" id="revFormat">--</span>
+            </div>
+            <div class="summary-item">
+              <span class="summary-label">Duration Dates</span>
+              <span class="summary-value" id="revDates">--</span>
+            </div>
+            <div class="summary-item">
+              <span class="summary-label">Total Duration</span>
+              <span class="summary-value" id="revDuration">--</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="cancelReviewBtn">
+          <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i>
+          <span>Back to Edit</span>
+        </button>
+        <button type="button" class="btn btn-primary" id="confirmSubmitBtn">
+          <span>Confirm &amp; Submit</span>
+          <i data-lucide="check" style="width: 16px; height: 16px;"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONFIRMATION SUBMITTED ANIMATED BLAST MODAL -->
+  <div class="modal-backdrop" id="successBlastModal" style="z-index: 2000;">
+    <canvas id="confettiCanvas" style="position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 2001;"></canvas>
+    <div class="modal-box blast-modal-box" style="z-index: 2002;">
+      
+      <!-- ANIMATED CHECKMARK BADGE WITH BLAST RIPPLE -->
+      <div class="blast-badge-container">
+        <div class="blast-ripple"></div>
+        <div class="blast-ripple blast-ripple-2"></div>
+        <div class="blast-badge">
+          <svg class="blast-check-svg" viewBox="0 0 52 52">
+            <circle class="blast-circle" cx="26" cy="26" r="24" fill="none"/>
+            <path class="blast-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+          </svg>
+        </div>
+      </div>
+
+      <h2 class="blast-title">Confirmation Request Submitted</h2>
+      <p class="blast-subtitle">
+        Your internship confirmation request has been successfully registered in the Approtech system.
+      </p>
+
+      <div class="blast-app-pill">
+        <span class="blast-app-label">Application Reference ID</span>
+        <span class="blast-app-id" id="blastAppId">APP-2026-XXXXX</span>
+      </div>
+
+      <div style="margin-top: 1.75rem;">
+        <button type="button" class="btn btn-primary btn-lg" id="blastDoneBtn" style="width: 100%;">
+          <span>Done</span>
+          <i data-lucide="check" style="width: 18px; height: 18px;"></i>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

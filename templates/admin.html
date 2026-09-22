@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel - Approtech R&amp;D Solutions Pvt. Ltd.</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/approtech-logo.png') }}">
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- 1. TOP HEADER -->
+  <header class="admin-navbar">
+    <div class="admin-nav-inner">
+      <div class="admin-brand-group">
+        <a href="/" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
+          <img src="{{ url_for('static', filename='images/approtech-logo.png') }}" alt="Approtech Logo" class="admin-brand-logo">
+          <div style="border-left: 1px solid #cbd5e1; height: 28px;"></div>
+          <div>
+            <div class="admin-title-badge">Admin Panel</div>
+            <div class="admin-company-sub">Approtech R&amp;D Solutions Pvt. Ltd.</div>
+          </div>
+        </a>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <a href="{{ url_for('index') }}" class="btn btn-outline btn-sm" title="Go to Student Request Form">
+          <i data-lucide="arrow-left" style="width: 15px; height: 15px;"></i>
+          <span>Student Form</span>
+        </a>
+        <a href="{{ url_for('logout') }}" class="btn btn-secondary btn-sm" title="Sign out of Admin Panel">
+          <i data-lucide="log-out" style="width: 15px; height: 15px;"></i>
+          <span>Logout</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 2. FULL-WIDTH ADMIN BODY (Natural browser scrolling) -->
+  <main class="admin-fullwidth-wrapper">
+    
+    <!-- STATISTICS CARDS -->
+    <div class="admin-stats-grid">
+      <!-- TOTAL -->
+      <div class="admin-stat-card">
+        <div class="stat-content">
+          <span class="stat-title">Total Submissions</span>
+          <span class="stat-value" id="statTotal">{{ stats.total }}</span>
+        </div>
+        <div class="stat-icon-wrapper stat-icon-blue">
+          <i data-lucide="users" style="width: 24px; height: 24px;"></i>
+        </div>
+      </div>
+
+      <!-- PENDING -->
+      <div class="admin-stat-card">
+        <div class="stat-content">
+          <span class="stat-title">Pending</span>
+          <span class="stat-value" id="statPending" style="color: #d97706;">{{ stats.pending }}</span>
+        </div>
+        <div class="stat-icon-wrapper stat-icon-amber">
+          <i data-lucide="clock" style="width: 24px; height: 24px;"></i>
+        </div>
+      </div>
+
+      <!-- ACCEPTED -->
+      <div class="admin-stat-card">
+        <div class="stat-content">
+          <span class="stat-title">Accepted</span>
+          <span class="stat-value" id="statAccepted" style="color: #059669;">{{ stats.accepted }}</span>
+        </div>
+        <div class="stat-icon-wrapper stat-icon-green">
+          <i data-lucide="check-circle-2" style="width: 24px; height: 24px;"></i>
+        </div>
+      </div>
+
+      <!-- REJECTED -->
+      <div class="admin-stat-card">
+        <div class="stat-content">
+          <span class="stat-title">Rejected</span>
+          <span class="stat-value" id="statRejected" style="color: #dc2626;">{{ stats.rejected }}</span>
+        </div>
+        <div class="stat-icon-wrapper stat-icon-red">
+          <i data-lucide="x-circle" style="width: 24px; height: 24px;"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. FULL-WIDTH FILTER & SEARCH AREA -->
+    <div class="admin-filter-card">
+      <div class="admin-filter-grid">
+        
+        <!-- Search all fields -->
+        <div class="filter-input-group">
+          <i data-lucide="search" class="filter-icon-left" style="width: 16px; height: 16px;"></i>
+          <input type="text" id="filterSearch" class="filter-input" placeholder="Search all fields (Name, Reg, Email, College)...">
+        </div>
+
+        <!-- Start Date -->
+        <div class="filter-input-group">
+          <i data-lucide="calendar" class="filter-icon-left" style="width: 15px; height: 15px;"></i>
+          <input type="date" id="filterStartDate" class="filter-input" title="Start Date Filter">
+        </div>
+
+        <!-- End Date -->
+        <div class="filter-input-group">
+          <i data-lucide="calendar" class="filter-icon-left" style="width: 15px; height: 15px;"></i>
+          <input type="date" id="filterEndDate" class="filter-input" title="End Date Filter">
+        </div>
+
+        <!-- Domain Filter -->
+        <div>
+          <select id="filterDomain" class="filter-select">
+            <option value="">All Domains</option>
+            {% for d in domains %}
+            <option value="{{ d }}">{{ d }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <!-- Status Filter -->
+        <div>
+          <select id="filterStatus" class="filter-select">
+            <option value="">All Statuses</option>
+            <option value="Pending">Pending</option>
+            <option value="Accepted">Accepted</option>
+            <option value="Rejected">Rejected</option>
+          </select>
+        </div>
+
+        <!-- Format Filter -->
+        <div>
+          <select id="filterFormat" class="filter-select">
+            <option value="">All Modes</option>
+            <option value="Online">Online</option>
+            <option value="Offline">Offline</option>
+          </select>
+        </div>
+
+        <!-- Search Button -->
+        <div>
+          <button type="button" id="btnApplyFilters" class="btn btn-primary btn-sm" style="height: 38px;">
+            <i data-lucide="filter" style="width: 14px; height: 14px;"></i>
+            <span>Search</span>
+          </button>
+        </div>
+
+        <!-- Clear Filters Button -->
+        <div>
+          <button type="button" id="btnClearFilters" class="btn btn-outline btn-sm" style="height: 38px;">
+            <i data-lucide="rotate-ccw" style="width: 14px; height: 14px;"></i>
+            <span>Clear Filters</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 4. FULL-WIDTH SUBMISSIONS TABLE -->
+    <section class="admin-table-section">
+      <div class="section-title-row">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <h2 class="section-heading-text">Student Submissions</h2>
+          <span class="records-counter-badge" id="visibleCountBadge">{{ submissions|length }} Records</span>
+        </div>
+      </div>
+
+      <div class="admin-table-card">
+        <div class="table-desktop-fluid">
+          <table class="admin-data-table" id="submissionsTable">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Register No.</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>College</th>
+                <th>Domain</th>
+                <th>Mode</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Status</th>
+                <th style="text-align: right;">Action</th>
+              </tr>
+            </thead>
+            <tbody id="submissionsTableBody">
+              {% if submissions %}
+                {% for sub in submissions %}
+                <tr class="submission-row" 
+                    id="row-{{ sub.id }}"
+                    data-id="{{ sub.id }}"
+                    data-app-id="{{ sub.application_id }}"
+                    data-name="{{ sub.full_name.lower() }}"
+                    data-reg="{{ sub.registration_number.lower() }}"
+                    data-email="{{ sub.email.lower() }}"
+                    data-phone="{{ sub.phone }}"
+                    data-college="{{ sub.institution_name.lower() }}"
+                    data-domain="{{ sub.internship_domain }}"
+                    data-mode="{{ sub.format_type }}"
+                    data-start="{{ sub.start_date }}"
+                    data-end="{{ sub.end_date }}"
+                    data-status="{{ sub.status }}">
+                  
+                  <!-- NAME -->
+                  <td>
+                    <div class="col-student-name">{{ sub.full_name }}</div>
+                    <div class="col-app-id">{{ sub.application_id }}</div>
+                  </td>
+
+                  <!-- REGISTER NO -->
+                  <td>
+                    <span class="col-reg-no">{{ sub.registration_number }}</span>
+                  </td>
+
+                  <!-- EMAIL -->
+                  <td>
+                    <div style="font-size: 0.8125rem; color: #334155;">{{ sub.email }}</div>
+                  </td>
+
+                  <!-- PHONE -->
+                  <td>
+                    <div style="font-size: 0.8125rem; font-family: ui-monospace, monospace; color: #475569;">{{ sub.phone }}</div>
+                  </td>
+
+                  <!-- COLLEGE -->
+                  <td>
+                    <div class="col-college-main" title="{{ sub.institution_name }}">{{ sub.institution_name }}</div>
+                    <div class="col-college-loc">{{ sub.institution_location }}</div>
+                  </td>
+
+                  <!-- DOMAIN -->
+                  <td>
+                    <span class="col-domain-text">{{ sub.internship_domain }}</span>
+                  </td>
+
+                  <!-- MODE -->
+                  <td>
+                    <span class="col-mode-badge {% if sub.format_type == 'Online' %}mode-online{% else %}mode-offline{% endif %}">
+                      {{ sub.format_type }}
+                    </span>
+                  </td>
+
+                  <!-- START DATE -->
+                  <td>
+                    <span class="col-date-str">{{ sub.start_date }}</span>
+                  </td>
+
+                  <!-- END DATE -->
+                  <td>
+                    <span class="col-date-str">{{ sub.end_date }}</span>
+                  </td>
+
+                  <!-- STATUS -->
+                  <td id="status-cell-{{ sub.id }}">
+                    <span class="status-pill status-{{ sub.status.lower() }}">
+                      <span style="font-size: 8px;">●</span>
+                      <span>{{ sub.status }}</span>
+                    </span>
+                  </td>
+
+                  <!-- ACTIONS -->
+                  <td style="text-align: right;">
+                    <div class="admin-action-btn-group">
+                      
+                      <!-- PREVIEW LETTER MODAL -->
+                      <button type="button" 
+                              class="act-btn act-preview btn-preview-letter" 
+                              data-id="{{ sub.id }}" 
+                              data-app-id="{{ sub.application_id }}" 
+                              data-name="{{ sub.full_name }}" 
+                              title="Preview Confirmation Letter">
+                        <i data-lucide="eye" style="width: 15px; height: 15px;"></i>
+                      </button>
+
+                      <!-- ACCEPT -->
+                      <button type="button" 
+                              class="act-btn act-accept btn-action-status" 
+                              data-id="{{ sub.id }}" 
+                              data-name="{{ sub.full_name }}" 
+                              data-status="Accepted" 
+                              title="Accept Submission">
+                        <i data-lucide="check" style="width: 15px; height: 15px;"></i>
+                      </button>
+
+                      <!-- REJECT -->
+                      <button type="button" 
+                              class="act-btn act-reject btn-action-status" 
+                              data-id="{{ sub.id }}" 
+                              data-name="{{ sub.full_name }}" 
+                              data-status="Rejected" 
+                              title="Reject Submission">
+                        <i data-lucide="x" style="width: 15px; height: 15px;"></i>
+                      </button>
+
+                      <!-- GENERATE PDF -->
+                      <a href="{{ url_for('admin_generate_pdf', sub_id=sub.id) }}" 
+                         class="act-btn act-pdf" 
+                         title="Generate &amp; Download PDF" 
+                         target="_blank">
+                        <i data-lucide="file-text" style="width: 15px; height: 15px;"></i>
+                      </a>
+
+                      <!-- GENERATE WORD -->
+                      <a href="{{ url_for('admin_generate_word', sub_id=sub.id) }}" 
+                         class="act-btn act-word" 
+                         title="Generate &amp; Download Word (.docx)">
+                        <i data-lucide="file-edit" style="width: 15px; height: 15px;"></i>
+                      </a>
+
+                      <!-- VIEW DETAILS -->
+                      <button type="button" 
+                              class="act-btn act-view btn-view-dossier" 
+                              data-id="{{ sub.id }}" 
+                              title="View Application Details">
+                        <i data-lucide="user" style="width: 15px; height: 15px;"></i>
+                      </button>
+
+                      <!-- DELETE -->
+                      <button type="button" 
+                              class="act-btn act-delete btn-delete-submission" 
+                              data-id="{{ sub.id }}" 
+                              data-name="{{ sub.full_name }}" 
+                              title="Delete Submission">
+                        <i data-lucide="trash-2" style="width: 15px; height: 15px;"></i>
+                      </button>
+
+                    </div>
+                  </td>
+                </tr>
+                {% endfor %}
+              {% else %}
+                <tr id="emptyPlaceholderRow">
+                  <td colspan="11" style="text-align: center; padding: 48px; color: #64748b;">
+                    No student submissions found in the database.
+                  </td>
+                </tr>
+              {% endif %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 5. VIEW APPLICATION DOSSIER MODAL -->
+  <div class="modal-backdrop" id="dossierModal">
+    <div class="modal-box" style="max-width: 680px;">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <i data-lucide="user-check" style="width: 22px; height: 22px; color: var(--primary);"></i>
+          <h3 class="modal-title">Student Application Dossier</h3>
+        </div>
+        <button type="button" class="modal-close-btn" id="closeDossierModal">&times;</button>
+      </div>
+
+      <div class="modal-body" id="dossierBody">
+        <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 12px; border-bottom: 1px solid #e2e8f0;">
+          <div>
+            <h4 id="dosName" style="font-size: 1.25rem; font-weight: 800; color: #0f172a;">--</h4>
+            <span id="dosAppId" style="font-family: monospace; color: #4f46e5; font-size: 0.875rem;">--</span>
+          </div>
+          <div id="dosStatusBadge">--</div>
+        </div>
+
+        <div class="dossier-grid">
+          <div class="dossier-item">
+            <span class="dossier-label">Registration Number</span>
+            <span class="dossier-value" id="dosReg">--</span>
+          </div>
+          <div class="dossier-item">
+            <span class="dossier-label">Email Address</span>
+            <span class="dossier-value" id="dosEmail">--</span>
+          </div>
+          <div class="dossier-item">
+            <span class="dossier-label">Phone Number</span>
+            <span class="dossier-value" id="dosPhone">--</span>
+          </div>
+          <div class="dossier-item">
+            <span class="dossier-label">Degree / Department</span>
+            <span class="dossier-value" id="dosDegree">--</span>
+          </div>
+          <div class="dossier-item">
+            <span class="dossier-label">College / Institution</span>
+            <span class="dossier-value" id="dosCollege">--</span>
+          </div>
+          <div class="dossier-item">
+            <span class="dossier-label">Location</span>
+            <span class="dossier-value" id="dosLocation">--</span>
+          </div>
+          <div class="dossier-item">
+            <span class="dossier-label">Internship Domain</span>
+            <span class="dossier-value" id="dosDomain" style="color: #4f46e5;">--</span>
+          </div>
+          <div class="dossier-item">
+            <span class="dossier-label">Format / Mode</span>
+            <span class="dossier-value" id="dosMode">--</span>
+          </div>
+          <div class="dossier-item">
+            <span class="dossier-label">Duration Period</span>
+            <span class="dossier-value" id="dosPeriod">--</span>
+          </div>
+          <div class="dossier-item">
+            <span class="dossier-label">Total Duration</span>
+            <span class="dossier-value" id="dosDuration">--</span>
+          </div>
+        </div>
+
+        <!-- QUICK ACTIONS INSIDE MODAL -->
+        <div style="display: flex; gap: 10px; margin-top: 24px; padding-top: 16px; border-top: 1px solid #e2e8f0; flex-wrap: wrap;">
+          <a id="dosPdfLink" href="#" target="_blank" class="btn btn-outline btn-sm">
+            <i data-lucide="file-text" style="width: 14px; height: 14px;"></i>
+            <span>Download PDF</span>
+          </a>
+          <a id="dosWordLink" href="#" class="btn btn-outline btn-sm">
+            <i data-lucide="file-edit" style="width: 14px; height: 14px;"></i>
+            <span>Download Word</span>
+          </a>
+          <a id="dosLetterLink" href="#" target="_blank" class="btn btn-outline btn-sm">
+            <i data-lucide="printer" style="width: 14px; height: 14px;"></i>
+            <span>Print View</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="closeDossierBtn">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. DELETE CONFIRMATION MODAL -->
+  <div class="modal-backdrop" id="deleteModal">
+    <div class="modal-box" style="max-width: 440px;">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <i data-lucide="alert-triangle" style="width: 22px; height: 22px; color: #ef4444;"></i>
+          <h3 class="modal-title">Confirm Deletion</h3>
+        </div>
+        <button type="button" class="modal-close-btn" id="closeDeleteModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="color: #475569; font-size: 0.9375rem;">
+          Are you sure you want to permanently delete the confirmation request for <strong id="deleteTargetName">--</strong>?
+        </p>
+        <p style="color: #ef4444; font-size: 0.8125rem; margin-top: 8px;">
+          This action cannot be undone.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="cancelDeleteBtn">Cancel</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteBtn">
+          <i data-lucide="trash-2" style="width: 15px; height: 15px;"></i>
+          <span>Delete Record</span>
+    </div>
+  </div>
+
+  <!-- 7. LETTER PREVIEW MODAL (INTERACTIVE IN-APP PREVIEW) -->
+  <div class="modal-backdrop" id="letterPreviewModal">
+    <div class="modal-box letter-modal-box">
+      <div class="letter-modal-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <i data-lucide="file-check-2" style="width: 20px; height: 20px; color: #38bdf8;"></i>
+          <div>
+            <h3 style="font-size: 1rem; font-weight: 700; color: #ffffff; margin: 0;" id="previewModalStudentName">Confirmation Letter Preview</h3>
+            <span style="font-size: 0.75rem; color: #94a3b8;" id="previewModalAppId">Approtech Official Document</span>
+          </div>
+        </div>
+        
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <a id="previewModalOpenTab" href="#" target="_blank" class="btn btn-outline btn-sm" style="color: #ffffff; border-color: rgba(255,255,255,0.3); font-size: 12px;" title="Open in New Tab">
+            <i data-lucide="external-link" style="width: 14px; height: 14px;"></i>
+            <span>New Tab</span>
+          </a>
+          <button type="button" id="previewModalPrint" class="btn btn-sm" style="background: #10b981; color: white; border: none; font-size: 12px; cursor: pointer;" title="Print Letter">
+            <i data-lucide="printer" style="width: 14px; height: 14px;"></i>
+            <span>Print</span>
+          </button>
+          <a id="previewModalPdf" href="#" target="_blank" class="btn btn-sm" style="background: #db2777; color: white; font-size: 12px; text-decoration: none;" title="Download PDF">
+            <i data-lucide="file-text" style="width: 14px; height: 14px;"></i>
+            <span>PDF</span>
+          </a>
+          <a id="previewModalWord" href="#" class="btn btn-sm" style="background: #2563eb; color: white; font-size: 12px; text-decoration: none;" title="Download Word">
+            <i data-lucide="file-edit" style="width: 14px; height: 14px;"></i>
+            <span>Word</span>
+          </a>
+          <button type="button" class="modal-close-btn" id="closeLetterPreviewModal" style="color: #ffffff; font-size: 26px; margin-left: 8px;">&times;</button>
+        </div>
+      </div>
+
+      <div style="position: relative; flex: 1; background: #334155; overflow: hidden;">
+        <iframe id="letterPreviewIframe" class="letter-preview-iframe" src="about:blank"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLOATING TOAST NOTIFICATIONS CONTAINER -->
+  <div class="admin-toast-container" id="adminToastContainer"></div>
+
+  <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

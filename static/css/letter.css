@@ -1,0 +1,366 @@
+/* ============================================================
+   OFFICIAL CONFIRMATION LETTER STYLING
+   FAITHFUL TO APPROTECH MASTER REFERENCE
+   ============================================================ */
+
+:root {
+  --letter-font-serif: "Times New Roman", Times, "Liberation Serif", serif;
+  --letter-font-sans: "Arial", Helvetica, sans-serif;
+  --letter-color-text: #000000;
+  --letter-blue: #0052D4;
+}
+
+/* Container for standalone letter view */
+.letter-page-wrapper {
+  min-height: 100vh;
+  background-color: #3b4252;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Floating Action Bar */
+.letter-action-bar {
+  width: 100%;
+  max-width: 820px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(8px);
+  padding: 12px 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.letter-action-bar a, 
+.letter-action-bar button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* THE A4 PRINTABLE DOCUMENT */
+.letter-paper {
+  width: 210mm;
+  min-height: 297mm;
+  background: #ffffff;
+  padding: 18mm 20mm 16mm 20mm;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+  font-family: var(--letter-font-serif);
+  color: var(--letter-color-text);
+  line-height: 1.35;
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* HEADER BANNER */
+.official-letter-header {
+  width: 100%;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.official-header-img {
+  width: 100%;
+  max-height: 110px;
+  object-fit: contain;
+  display: block;
+}
+
+/* DOCUMENT TITLE */
+.official-letter-title {
+  font-family: var(--letter-font-serif);
+  font-size: 14pt;
+  font-weight: bold;
+  text-align: center;
+  margin: 14px 0 18px 0;
+  letter-spacing: 0.5px;
+  color: #000000;
+}
+
+/* TO AND DATE ROW */
+.official-to-date-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  font-size: 12pt;
+}
+
+.official-to-block {
+  font-size: 12pt;
+}
+
+.official-to-block strong {
+  font-size: 12pt;
+}
+
+.official-recipient-details {
+  margin-left: 28px;
+  line-height: 1.3;
+}
+
+.official-date-block {
+  font-size: 12pt;
+  white-space: nowrap;
+}
+
+.official-date-block strong {
+  font-weight: bold;
+}
+
+/* SALUTATION */
+.official-salutation {
+  font-size: 12pt;
+  margin-bottom: 12px;
+}
+
+/* BODY PARAGRAPHS */
+.official-p {
+  font-size: 11.2pt;
+  line-height: 1.38;
+  margin-bottom: 10px;
+  text-align: justify;
+}
+
+.official-p strong {
+  font-weight: bold;
+}
+
+/* INTERNSHIP DETAILS SECTION */
+.official-details-heading {
+  font-size: 13.5pt;
+  font-weight: bold;
+  margin-top: 14px;
+  margin-bottom: 8px;
+}
+
+.official-details-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 12px 0;
+}
+
+.official-details-list li {
+  font-size: 12pt;
+  line-height: 1.4;
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 4px;
+}
+
+.official-details-list li::before {
+  content: "•";
+  font-size: 14pt;
+  margin-right: 12px;
+  margin-left: 14px;
+  color: #000000;
+}
+
+.official-details-list .lbl {
+  font-weight: bold;
+  display: inline-block;
+  min-width: 175px;
+}
+
+.official-location-line {
+  font-size: 12pt;
+  margin-top: 8px;
+  margin-bottom: 12px;
+}
+
+/* SIGNATURE & STAMP SECTION */
+.official-signature-section {
+  margin-top: 10px;
+  margin-bottom: 6px;
+}
+
+.official-warm-regards {
+  font-size: 12pt;
+  margin-bottom: 6px;
+}
+
+.official-stamp-sig-row {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  min-height: 75px;
+  margin: 4px 0;
+}
+
+.official-sig-img {
+  height: 62px;
+  width: auto;
+  object-fit: contain;
+}
+
+.official-stamp-img {
+  height: 76px;
+  width: auto;
+  object-fit: contain;
+}
+
+.official-signatory-name {
+  font-size: 12pt;
+  margin-top: 4px;
+  color: #000000;
+}
+
+.official-signatory-company {
+  font-size: 12pt;
+  color: #000000;
+}
+
+/* FOOTER BANNER */
+.official-letter-footer {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.official-footer-img {
+  width: 100%;
+  max-height: 86px;
+  object-fit: contain;
+  display: block;
+}
+
+/* ============================================================
+   LIVE PREVIEW EMBEDDED IN PORTAL
+   ============================================================ */
+.live-letter-wrapper {
+  background: #cbd5e1;
+  padding: 16px 12px;
+  max-height: 840px;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.live-letter-sheet {
+  background: #ffffff;
+  width: 100%;
+  max-width: 460px;
+  padding: 20px 22px 18px 22px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  font-family: var(--letter-font-serif);
+  color: var(--letter-color-text);
+  line-height: 1.35;
+  box-sizing: border-box;
+}
+
+.live-letter-sheet .official-letter-title {
+  font-size: 11pt;
+  font-weight: bold;
+  text-align: center;
+  margin: 8px 0 12px 0;
+  letter-spacing: 0.5px;
+}
+
+.live-letter-sheet .official-details-heading {
+  font-size: 10.5pt;
+  font-weight: bold;
+  margin-top: 8px;
+  margin-bottom: 4px;
+}
+
+.live-letter-sheet .official-p {
+  font-size: 9.5pt;
+  line-height: 1.32;
+  margin-bottom: 6px;
+  text-align: justify;
+}
+
+.live-letter-sheet .official-details-list li {
+  font-size: 9.5pt;
+  line-height: 1.35;
+  margin-bottom: 2px;
+}
+
+.live-letter-sheet .official-to-date-row {
+  font-size: 9.5pt;
+  margin-bottom: 8px;
+}
+
+.live-letter-sheet .official-recipient-details {
+  margin-left: 16px;
+  line-height: 1.25;
+}
+
+.live-letter-sheet .official-salutation {
+  font-size: 9.5pt;
+  margin-bottom: 8px;
+}
+
+.live-letter-sheet .official-location-line {
+  font-size: 9.5pt;
+  margin-top: 4px;
+  margin-bottom: 6px;
+}
+
+.live-letter-sheet .official-signature-section {
+  margin-top: 6px;
+}
+
+.live-letter-sheet .official-warm-regards {
+  font-size: 9.5pt;
+  margin-bottom: 4px;
+}
+
+.live-letter-sheet .official-signatory-name {
+  font-size: 9.5pt;
+}
+
+.live-letter-sheet .official-signatory-company {
+  font-size: 9.5pt;
+}
+
+
+/* ============================================================
+   PRINT MEDIA - STRICT OFFICIAL A4 OUTPUT ONLY
+   ============================================================ */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  html, body {
+    width: 210mm;
+    height: 297mm;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    font-size: 12pt;
+  }
+
+  .letter-page-wrapper {
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .letter-action-bar,
+  .no-print {
+    display: none !important;
+  }
+
+  .letter-paper {
+    width: 210mm !important;
+    height: 297mm !important;
+    margin: 0 !important;
+    padding: 18mm 20mm 14mm 20mm !important;
+    box-shadow: none !important;
+    page-break-after: avoid;
+    page-break-inside: avoid;
+  }
+}

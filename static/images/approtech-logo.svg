@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 160" width="100%" height="100%">
+  <defs>
+    <!-- AP Monogram Left Branch Gradient (Cyan -> Royal Blue) -->
+    <linearGradient id="apLeftGrad" x1="0%" y1="100%" x2="60%" y2="0%">
+      <stop offset="0%" stop-color="#00D2FF" />
+      <stop offset="40%" stop-color="#0088FF" />
+      <stop offset="100%" stop-color="#0052D4" />
+    </linearGradient>
+
+    <!-- AP Monogram Right Loop Gradient (Royal Blue -> Indigo Purple) -->
+    <linearGradient id="apRightGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0052D4" />
+      <stop offset="50%" stop-color="#3A7BD5" />
+      <stop offset="100%" stop-color="#6A11CB" />
+    </linearGradient>
+
+    <!-- Text APPROTECH Gradient -->
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0088FF" />
+      <stop offset="50%" stop-color="#0052D4" />
+      <stop offset="100%" stop-color="#0033A0" />
+    </linearGradient>
+  </defs>
+
+  <!-- AP MONOGRAM LOGO SYMBOL -->
+  <g transform="translate(15, 12)">
+    <!-- Left Leg of A with bottom wing curves -->
+    <path d="M 46 15 
+             C 42 15, 38 18, 35 24 
+             L 8 98 
+             C 4 108, 1 118, 10 126 
+             C 18 132, 28 134, 38 134 
+             C 52 134, 58 126, 62 116 
+             L 76 80 
+             Z" 
+          fill="url(#apLeftGrad)" />
+
+    <!-- Upper loop of P connecting to A stem -->
+    <path d="M 48 15 
+             C 85 10, 122 30, 122 68 
+             C 122 102, 88 122, 58 122 
+             L 42 122 
+             C 32 122, 28 116, 28 108 
+             L 28 94 
+             L 52 94 
+             C 74 94, 94 82, 94 65 
+             C 94 48, 72 38, 50 38 
+             Z" 
+          fill="url(#apRightGrad)" />
+
+    <!-- Crossbar beam -->
+    <path d="M 28 86 L 82 86 C 88 86, 92 92, 88 98 L 74 104 L 20 104 Z" fill="#00E5FF" opacity="0.95" />
+  </g>
+
+  <!-- LOGO TEXT BLOCK -->
+  <g transform="translate(150, 18)">
+    <!-- APPROTECH -->
+    <text x="0" y="62" 
+          font-family="'Times New Roman', Georgia, 'Playfair Display', serif" 
+          font-weight="900" 
+          font-size="64" 
+          fill="url(#textGrad)" 
+          letter-spacing="2">APPROTECH</text>
+
+    <!-- R&D SOLUTIONS PRIVATE LIMITED -->
+    <text x="4" y="96" 
+          font-family="Arial, Helvetica, 'Trebuchet MS', sans-serif" 
+          font-weight="800" 
+          font-size="21" 
+          fill="#1E293B" 
+          letter-spacing="2.2">R&amp;D SOLUTIONS PRIVATE LIMITED</text>
+
+    <!-- ISO 9001 : 2015 CERTIFIED COMPANY -->
+    <text x="4" y="122" 
+          font-family="Arial, Helvetica, sans-serif" 
+          font-weight="800" 
+          font-size="15" 
+          fill="#0072FF" 
+          letter-spacing="2.8">ISO 9001 : 2015 CERTIFIED COMPANY</text>
+  </g>
+</svg>

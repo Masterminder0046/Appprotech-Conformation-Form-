@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100" width="100%" height="100%">
+  <rect width="200" height="100" fill="none"/>
+  <!-- MSME emblem icon -->
+  <path d="M 20 20 L 180 20 L 180 75 L 20 75 Z" fill="none" stroke="#1E3A8A" stroke-width="2"/>
+  <text x="100" y="52" font-family="'Arial Black', Arial, sans-serif" font-weight="900" font-size="32" fill="#1E3A8A" text-anchor="middle" letter-spacing="2">MSME</text>
+  <text x="100" y="68" font-family="Arial, sans-serif" font-size="7.5" font-weight="bold" fill="#475569" text-anchor="middle">MICRO, SMALL &amp; MEDIUM ENTERPRISES</text>
+  <text x="100" y="86" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#1E293B" text-anchor="middle">UDYAM-TN-34-0084298</text>
+</svg>

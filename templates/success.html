@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confirmation Request Submitted | Approtech R&amp;D Solutions</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/approtech-logo.png') }}">
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body style="min-height: 100vh; display: flex; flex-direction: column; background: var(--bg-canvas);">
+
+  <!-- Confetti Canvas for Blast Animation -->
+  <canvas id="confettiCanvas" style="position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 999;"></canvas>
+
+  <!-- TOP NAVIGATION -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <a href="/" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
+          <img src="{{ url_for('static', filename='images/approtech-logo.png') }}" alt="Approtech Logo" class="brand-logo">
+          <div class="brand-divider"></div>
+          <div class="brand-text-block">
+            <span class="portal-title">Internship Portal</span>
+            <span class="portal-subtitle">Confirmation Request</span>
+          </div>
+        </a>
+      </div>
+      <div class="nav-actions">
+        <a href="/" class="btn btn-outline btn-sm">
+          <i data-lucide="plus-circle" style="width: 15px; height: 15px;"></i>
+          <span>New Application</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CELEBRATION VIEW -->
+  <main style="flex: 1; display: flex; justify-content: center; align-items: center; padding: 40px 16px;">
+    <div class="blast-modal-box" style="width: 100%; max-width: 520px; box-shadow: var(--shadow-lg);">
+      
+      <!-- ANIMATED CHECKMARK BADGE WITH BLAST RIPPLE -->
+      <div class="blast-badge-container">
+        <div class="blast-ripple"></div>
+        <div class="blast-ripple blast-ripple-2"></div>
+        <div class="blast-badge">
+          <svg class="blast-check-svg" viewBox="0 0 52 52">
+            <circle class="blast-circle" cx="26" cy="26" r="24" fill="none"/>
+            <path class="blast-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+          </svg>
+        </div>
+      </div>
+
+      <h1 class="blast-title">Confirmation Request Submitted</h1>
+      <p class="blast-subtitle">
+        Your internship confirmation request has been successfully registered in the Approtech system.
+      </p>
+
+      <div class="blast-app-pill">
+        <span class="blast-app-label">Application Reference ID</span>
+        <span class="blast-app-id">{{ submission.application_id }}</span>
+      </div>
+
+      <div style="margin-top: 1.75rem;">
+        <a href="/" class="btn btn-primary btn-lg" style="width: 100%; text-decoration: none;">
+          <span>Done</span>
+          <i data-lucide="check" style="width: 18px; height: 18px;"></i>
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    // Confetti Blast Engine on Page Load
+    function triggerConfettiBlast() {
+      const canvas = document.getElementById('confettiCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const colors = ['#0088FF', '#0052D4', '#00D2FF', '#10B981', '#F59E0B', '#6366F1', '#EC4899', '#38BDF8'];
+      const particles = [];
+      const count = 140;
+      const originX = canvas.width / 2;
+      const originY = canvas.height * 0.42;
+
+      for (let i = 0; i < count; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 15 + 7;
+        particles.push({
+          x: originX,
+          y: originY,
+          vx: Math.cos(angle) * speed * (Math.random() * 0.8 + 0.5),
+          vy: Math.sin(angle) * speed * (Math.random() * 0.8 + 0.5) - 5,
+          size: Math.random() * 9 + 6,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          rotation: Math.random() * 360,
+          rotSpeed: (Math.random() - 0.5) * 12,
+          opacity: 1,
+          shape: Math.random() > 0.35 ? 'rect' : 'circle',
+          drag: 0.955,
+          gravity: 0.26
+        });
+      }
+
+      let animationFrame;
+      function render() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        let activeCount = 0;
+
+        particles.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vx *= p.drag;
+          p.vy = p.vy * p.drag + p.gravity;
+          p.rotation += p.rotSpeed;
+          p.opacity -= 0.006;
+
+          if (p.opacity > 0 && p.y < canvas.height + 30) {
+            activeCount++;
+            ctx.save();
+            ctx.globalAlpha = Math.max(0, p.opacity);
+            ctx.translate(p.x, p.y);
+            ctx.rotate((p.rotation * Math.PI) / 180);
+            ctx.fillStyle = p.color;
+
+            if (p.shape === 'rect') {
+              ctx.fillRect(-p.size / 2, -p.size / 4, p.size, p.size / 2);
+            } else {
+              ctx.beginPath();
+              ctx.arc(0, 0, p.size / 2, 0, Math.PI * 2);
+              ctx.fill();
+            }
+            ctx.restore();
+          }
+        });
+
+        if (activeCount > 0) {
+          animationFrame = requestAnimationFrame(render);
+        } else {
+          cancelAnimationFrame(animationFrame);
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+      }
+
+      render();
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      triggerConfettiBlast();
+    });
+  </script>
+</body>
+</html>

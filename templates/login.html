@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login | Approtech R&amp;D Solutions</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/approtech-logo.png') }}">
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .login-wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+      background: linear-gradient(135deg, #f8fafc 0%, #edf2f7 100%);
+    }
+
+    .login-card {
+      background: #ffffff;
+      width: 100%;
+      max-width: 420px;
+      padding: 36px 32px;
+      border-radius: 16px;
+      border: 1px solid var(--slate-200);
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      position: relative;
+    }
+
+    .login-brand-header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .login-logo {
+      height: 48px;
+      width: auto;
+      margin-bottom: 16px;
+    }
+
+    .login-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.02em;
+    }
+
+    .login-subtitle {
+      font-size: 0.8125rem;
+      color: #64748b;
+      margin-top: 4px;
+    }
+
+    .login-form-group {
+      margin-bottom: 18px;
+    }
+
+    .login-label {
+      display: block;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: #334155;
+      margin-bottom: 6px;
+    }
+
+    .login-input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .login-icon-left {
+      position: absolute;
+      left: 12px;
+      color: #94a3b8;
+      pointer-events: none;
+    }
+
+    .login-input {
+      width: 100%;
+      height: 44px;
+      padding: 0 12px 0 38px;
+      font-size: 0.9375rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      background-color: #ffffff;
+      color: #0f172a;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .login-input:focus {
+      border-color: #4f46e5;
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+    }
+
+    .login-btn {
+      width: 100%;
+      height: 44px;
+      background: #4f46e5;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.9375rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.1s ease;
+      margin-top: 8px;
+    }
+
+    .login-btn:hover {
+      background: #4338ca;
+      transform: translateY(-1px);
+    }
+
+    .login-btn:active {
+      transform: translateY(0);
+    }
+
+    .login-alert {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #dc2626;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 0.8125rem;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .login-demo-hint {
+      margin-top: 24px;
+      padding: 12px;
+      background: #f8fafc;
+      border: 1px dashed #cbd5e1;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      color: #64748b;
+      text-align: center;
+    }
+
+    .login-demo-hint strong {
+      color: #0f172a;
+    }
+
+    .back-home-link {
+      margin-top: 20px;
+      font-size: 0.8125rem;
+      color: #64748b;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .back-home-link:hover {
+      color: #4f46e5;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-wrapper">
+    <div class="login-card">
+      
+      <!-- LOGO & TITLE -->
+      <div class="login-brand-header">
+        <img src="{{ url_for('static', filename='images/approtech-logo.png') }}" alt="Approtech Logo" class="login-logo">
+        <h1 class="login-title">Admin Portal Sign In</h1>
+        <p class="login-subtitle">Approtech R&amp;D Solutions Pvt. Ltd.</p>
+      </div>
+
+      <!-- FLASH MESSAGES -->
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="login-alert">
+              <i data-lucide="alert-circle" style="width: 16px; height: 16px; flex-shrink: 0;"></i>
+              <span>{{ message }}</span>
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      <!-- LOGIN FORM -->
+      <form action="{{ url_for('login') }}" method="POST">
+        <input type="hidden" name="next" value="{{ next_url or '/admin' }}">
+        
+        <div class="login-form-group">
+          <label for="username" class="login-label">Username</label>
+          <div class="login-input-wrap">
+            <i data-lucide="user" class="login-icon-left" style="width: 16px; height: 16px;"></i>
+            <input type="text" id="username" name="username" class="login-input" placeholder="Enter admin username" required autofocus value="admin">
+          </div>
+        </div>
+
+        <div class="login-form-group">
+          <label for="password" class="login-label">Password</label>
+          <div class="login-input-wrap">
+            <i data-lucide="lock" class="login-icon-left" style="width: 16px; height: 16px;"></i>
+            <input type="password" id="password" name="password" class="login-input" placeholder="Enter password" required value="admin123">
+          </div>
+        </div>
+
+        <button type="submit" class="login-btn">
+          <span>Sign In to Admin Panel</span>
+          <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+        </button>
+      </form>
+
+      <!-- DEMO HINT -->
+      <div class="login-demo-hint">
+        <div>Approtech Administration Security Gateway</div>
+        <div style="margin-top: 4px;">Default Credentials: <strong>admin</strong> / <strong>admin123</strong></div>
+      </div>
+
+    </div>
+
+    <a href="{{ url_for('index') }}" class="back-home-link">
+      <i data-lucide="arrow-left" style="width: 14px; height: 14px;"></i>
+      <span>Back to Student Portal</span>
+    </a>
+  </div>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

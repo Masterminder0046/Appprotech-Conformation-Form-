@@ -1,0 +1,6 @@
+{
+  "name": "Approtech Internship Portal",
+  "description": "Internship Confirmation Letter Request System for Approtech R&D Solutions Pvt. Ltd.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
