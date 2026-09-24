@@ -3,7 +3,7 @@ import sqlite3
 import random
 import string
 from datetime import datetime
-from flask import Flask, render_template, request, jsonify, redirect, url_for, flash, send_file, session, abort
+from flask import Flask, render_template, request, jsonify, redirect, url_for, flash, send_file, send_from_directory, session, abort
 from pdf_generator import generate_pdf
 from docx_generator import generate_docx
 
@@ -101,6 +101,11 @@ def format_date_str(date_str):
         return datetime.strptime(date_str, "%Y-%m-%d").strftime("%d-%m-%Y")
     except Exception:
         return date_str
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static', 'images'),
+                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 # ----------------- STUDENT ROUTES -----------------
 
